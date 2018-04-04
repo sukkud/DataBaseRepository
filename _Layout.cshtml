@@ -1,0 +1,191 @@
+﻿@using DOSBPM.MenuHighlight
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/CSS/StyleSheet.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+
+    @*<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+    @* <script src="~/Scripts/jquery.validate.min.js"></script>*@
+    <link href="~/Content/FooterBottom.css" rel="stylesheet" />
+    @*<script src="~/Scripts/bootstrap.js"></script>*@
+    <link href="~/Content/CSS/StyleSheet.css" rel="stylesheet" />
+    <script src="~/Scripts/BPM_Js/Common.js"></script>
+    <link href="~/Content/CSS/StyleSheet.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.2.1.js"></script>
+</head>
+
+<body oncontextmenu=" return disableRightClick();">
+
+    @*<div class=" navbar-header navbar-fixed-top  " style="width:100%">
+            <img src="~/Content/Images/VHeader.PNG" />
+        </div>*@
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid" style="background-color:#0e7a84; color:white;">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="navbar-header">
+                        <span><img src="~/Content/Images/BPM Logo.jpg" style="width:100%" /></span>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="text-center" style="background-color:#0e7a84; color:white;">
+                        <h1> Division of Building Standards and Codes </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+    <div id="customerresult" class="itemdetailws">
+        <div class="navbar-default" id="sidenav">
+            <ul class="nav navbar-left">
+                <li>@Html.ActionLink("Qualifying Information", "Index", "QualifyingInfo", null, new { @class = "classname" })</li>
+                @*<li>@Html.ActionLink("Qualifying Information", "Index", "QualifyingQuestions", null, new { @class = "classname" })</li>*@
+
+                @*<nav class="navbar-default">
+                    <div class="container">
+                        <div class="collapse navbar-collapse" id="myNavbar">
+                            <ul class="nav navbar-left">*@
+
+                <li class="dropdown">
+                    <a href="# " class="dropdown-toggle" data-toggle="dropdown">
+                        Stakeholder Contact Information
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class='@Html.IsActive("StakeholderContactInfo","PropertyOwnerInfo", "Index")'>@Html.ActionLink("Property Owner Information", "Index", "PropertyOwnerInfo", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("StakeholderContactInfo","PropertyOwnerContact", "Index")'>@Html.ActionLink("Property Owner Contact", "Index", "PropertyOwnerContact", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("StakeholderContactInfo","AdditionalStakeholderInfo", "Index")'>@Html.ActionLink("Additional Stakeholder Information", "Index", "AdditionalStakeholderInfo", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("StakeholderContactInfo","AdditionalStakeholderContacts", "Index")'>@Html.ActionLink("Additional Stakeholder Contacts", "Index", "AdditionalStakeholderContacts", null, new { @class = "classname" })</li>
+                    </ul>
+                </li>
+
+                @*</ul>
+                            </div>
+                        </div>
+                    </nav>*@
+
+                <li class='@Html.IsActive("BuildingInfo","BuildingInfo", "Index")'>@Html.ActionLink("Building Information", "Index", "BuildingInfo", null, new { @class = "classname" })</li>
+                <li class='@Html.IsActive("AdditionalInfo","AdditionalInfo", "Index")'>@Html.ActionLink("Additional Information", "Index", "AdditionalInfo", null, new { @class = "classname" })</li>
+
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Code Compliance Checklist Part I
+                    </a>
+                    <ul class="dropdown-menu">
+
+                        <li class='@Html.IsActive("ProjectDescription","ProjectDescription", "Index")'>@Html.ActionLink("Project Description", "Index", "ProjectDescription", null, new { @class = "classname" }) </li>
+                        <li class='@Html.IsActive("OccupancyHeightsandAreas","OccupancyHeightsandAreas", "Index")'>@Html.ActionLink("Occupancy, Heights and Areas", "Index", "OccupancyHeightsandAreas", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("VarianceQuestions","VarianceQuestions", "Index")'>@Html.ActionLink("Variance Questions", "Index", "VarianceQuestions", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("SiteandUtilities","SiteandUtilities", "Index")'>@Html.ActionLink("Site and Utilities", "Index", "SiteandUtilities", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("MiscAdditionalInfo","MiscAdditionalInfo", "Index")'>@Html.ActionLink("Misc. Additional Information", "Index", "MiscAdditionalInfo", null, new { @class = "classname" })</li>
+                    </ul>
+                </li>
+
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Code Compliance Checklist Part II
+                    </a>
+                    <ul class="dropdown-menu">
+
+                        <li class='@Html.IsActive("SpecialDetailedRequirementsBasedonUseandOccupancy","SpecialDetailedRequirementsBasedonUseandOccupancy", "Index")'>@Html.ActionLink("Special Detailed Requirements Based on Use and Occupancy", "Index", "SpecialDetailedRequirementsBasedonUseandOccupancy", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("CodeIntegration","CodeIntegration", "Index")'>@Html.ActionLink("Code Integration", "Index", "CodeIntegration", null, new { @class = "classname" }) </li>
+                        <li class='@Html.IsActive("GeneralBuildingHeightsandAreas","GeneralBuildingHeightsandAreas", "Index")'>@Html.ActionLink("General Building Heights and Areas", "Index", "GeneralBuildingHeightsandAreas", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("TypeofConstruction","TypeofConstruction", "Index")'>@Html.ActionLink("Type of Construction", "Index", "TypeofConstruction", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("FireandSmokeProtectionFeatures","FireandSmokeProtectionFeatures", "Index")'>@Html.ActionLink("Fire and Smoke Protection Features", "Index", "FireandSmokeProtectionFeatures", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("InteriorFinishes","InteriorFinishes", "Index")'>@Html.ActionLink("Interior Finishes", "Index", "InteriorFinishes", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("FireProtectionSystems","FireProtectionSystems", "Index")'>@Html.ActionLink("Fire Protection Systems", "Index", "FireProtectionSystems", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("MeansofEgress", "MeansofEgress", "Index")'>@Html.ActionLink("Means of Egress", "Index", "MeansofEgress", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("Accessibility","Accessibility", "Index")'>@Html.ActionLink("Accessibility", "Index", "Accessibility", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("InteriorEnvironmentandExteriorWallsandRooftopStructures","InteriorEnvironmentandExteriorWallsandRooftopStructures", "Index")'>@Html.ActionLink("Interior Environment/ExteriorWalls and Rooftop Structures", "Index", "InteriorEnvironmentandExteriorWallsandRooftopStructures", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("EnergyRequirements","EnergyRequirements", "Index")'>@Html.ActionLink("Energy Requirements", "Index", "EnergyRequirements", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("StructrualDesign","StructrualDesign", "Index")'>@Html.ActionLink("Structural Design", "Index", "StructrualDesign", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("SoilsandFoundations","SoilsandFoundations", "Index")'>@Html.ActionLink("Soils and Foundations", "Index", "SoilsandFoundations", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("ConstructionMaterials","ConstructionMaterials", "Index")'>@Html.ActionLink("Construction Materials", "Index", "ConstructionMaterials", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("ElectricalRequirements","ElectricalRequirements", "Index")'>@Html.ActionLink("Electrical Requirements", "Index", "ElectricalRequirements", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("MechanicalRequirements","MechanicalRequirements", "Index")'>@Html.ActionLink("Mechanical Requirements", "Index", "MechanicalRequirements", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("PlumbingRequirements","PlumbingRequirements", "Index")'>@Html.ActionLink("Plumbing Requirements", "Index", "PlumbingRequirements", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("FuelGasRequirements","FuelGasRequirements", "Index")'>@Html.ActionLink("Fuel Gas Requirements", "Index", "FuelGasRequirements", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("ElevatorsandConveyingSystems","ElevatorsandConveyingSystems", "Index")'>@Html.ActionLink("Elevators and Conveying Systems", "Index", "ElevatorsandConveyingSystems", null, new { @class = "classname" })</li>
+                        <li class='@Html.IsActive("SafeguardsDuringConstruction","SafeguardsDuringConstruction", "Index")'>@Html.ActionLink("Safeguards During Construction", "Index", "SafeguardsDuringConstruction", null, new { @class = "classname" })</li>
+
+                    </ul>
+                </li>
+                <li class='@Html.IsActive("Uploads","Uploads", "Index")'>@Html.ActionLink("Uploads", "Index", "Uploads", null, new { @class = "classname" })</li>
+                <li class='@Html.IsActive("Payment","Payment", "Index")'>@Html.ActionLink("Payment", "Index", "Payment", null, new { @class = "classname" })</li>
+                <li class='@Html.IsActive("AttestationandSubmit","AttestationandSubmit", "Index")'>@Html.ActionLink("Attestation/Submit", "Index", "AttestationandSubmit", null, new { @class = "classname" })</li>
+                <li class='@Html.IsActive("Summary", "Summary", "Index")'>@Html.ActionLink("Summary", "Index", "Summary", null, new { @class = "classname" })</li>
+            </ul>
+        </div>
+        <div class="container body-content">
+            <div style="margin-left :280px ">
+                @RenderBody()
+                <footer class="footer" style="background-color:#56524e;">
+
+                    <p style="color:white;padding-left:20px; "><img src="~/Content/Images/logo_footer.png" /> &nbsp; &copy; @DateTime.Now.Year Department of State - New York</p>
+                </footer>
+            </div>
+
+
+        </div>
+
+        @*<div class="navbar-fixed-bottom  ">
+                <footer style="padding-left:40px">
+                    <p>&copy; @DateTime.Now.Year Department of State - New York</p>
+                </footer>
+                <img src="~/Content/Images/VFooter.png" />
+            </div>*@
+
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+
+</html>
+
+
+
+@*For Disabling Right Click*@
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.1.js"></script>
+
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+
+<script type="text/javascript">
+
+    var url = window.location.pathname.split("/");
+    var questions = url[1];
+
+    if (questions == 'PropertyOwnerInfo' || questions == 'PropertyOwnerContact' || questions == 'AdditionalStakeholderInfo' || questions == 'AdditionalStakeholderContacts') {
+
+        $('#stakeholdercontactinfo').css("background-color", "grey");
+    }
+
+    else if
+    (questions == 'ProjectDescription' || questions == 'OccupancyHeightsandAreas' || questions == 'VarianceQuestions' || questions == 'SiteandUtilities' || questions == 'MiscAdditionalInfo') {
+        $('#checklistpart1').css("background-color", "grey");
+    }
+
+    else if (questions == 'SpecialDetailedRequirementsBasedonUseandOccupancy' || questions == 'CodeIntegration' || questions == 'GeneralBuildingHeightsandAreas' ||
+        questions == 'TypeofConstruction' || questions == 'FireandSmokeProtectionFeatures' || questions == 'InteriorFinishes' || questions == 'FireProtectionSystems'
+        || questions == 'MeansofEgress' || questions == 'Accessibility' || questions == 'InteriorEnvironmentandExteriorWallsandRooftopStructures' ||
+        questions == 'EnergyRequirements' || questions == 'StructrualDesign' || questions == 'SoilsandFoundations' || questions == 'ConstructionMaterials' ||
+        questions == 'ElectricalRequirements' || questions == 'MechanicalRequirements' || questions == 'PlumbingRequirements' || questions == 'FuelGasRequirements'
+        || questions == 'FuelGasRequirements' || questions == 'ElevatorsandConveyingSystems' || questions == 'SafeguardsDuringConstruction') {
+        $('#checklistpart2').css("background-color", "grey")
+    }
+
+   
+</script>
