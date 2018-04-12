@@ -1,0 +1,209 @@
+﻿@using DOSBPM.Models
+@model DOSBPM.Models.PropertyOwnerInfo
+
+@*@model DOSBPM.Models.PropertyOwnerOrganization*@
+
+@{
+    ViewBag.Title = "Property Owner Info";
+}
+
+
+
+<div class="container-fluid" id="PropertyOwnerForm">
+    @using (Html.BeginForm("Index", "PropertyOwnerInfo", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <div class="col-md-12">
+
+                <h3>Property Owner Information</h3>
+                <i>
+                    If any fields are blank with an *, you must enter the missing informaiton in the appropriate field. The Informaiton listed below
+                    is pre-populated from user profile. If the information needs to be updated, please select edit below.
+                </i>
+                <br />
+
+                <label><b>Select Stakeholder Type</b> </label><br />
+                <div>
+                    @Html.DropDownListFor(model => model.StakeholderType, Model.StakeholderTypeList, "--Select Stakeholder Type--", new { @class = "form-control", id = "ddTransTypes" })
+                </div>
+                <div id="pagebody" style="display:none">
+                    <br />
+                    <div class="col-md-6 ">
+                        <label><b>Search for Stakeholder</b></label><br>
+                        <div id="btnSearch" class="input-group col-lg-4 col-sm-6">
+                            <input id="serachText1" type="text" class="form-control" placeholder="search">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                        </div>
+
+                    </div>
+
+                    <br />
+                    <div class="col-md-12"><br /></div><br />
+                    <div class="col-md-12 ">
+                        @Html.CheckBox("Check this box to change or update information", new {@class="", id="propChecked" }) &nbsp; Check this box to change or update information
+                        <br />
+                        @Html.CheckBox("Create new record") &nbsp; Create new record<br /><br />
+                    </div>
+                    <br />
+                    @*-------------PropertyOwnerOrganizationPage----------------------*@
+                    <div id="PropertyOwnerInformation" style="display:block" >
+                        <div class="form-group">
+
+
+                            <div class="col-md-3">
+                                <lable class=" required">Organization Name</lable><br />
+                                @Html.TextBoxFor(x => x.OrganizationName, new { @class = "form-control", IsRequired = "TRUE" })
+                            </div>
+                            <div class="col-md-3">
+                                <lable>Authority in Charge of the Property </lable> <br />
+                                @Html.TextBoxFor(x => x.Authority, new { @class = "form-control", maxlength = "30" })
+                            </div>
+
+                            <br />
+                            <div class="col-md-12"></div><br />
+                            <div>
+                                @Html.Partial("_AddressInfo", Model)
+                            </div>
+                            <div class="col-md-12"></div><br />
+                        </div>
+                    </div>
+                    @*--------------PropertyOwnerIndividualPage-----------------*@
+
+                    <div id="PropertyOwnerIndividualPage" style="display:none">
+                        <div class="form-group">
+                            <div class="col-md-3 ">
+                                <label class="required">First Name</label> <br />
+                                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control ", style = "padding:4px 6px", IsRequired = "TRUE" })
+                            </div>
+                            <div class="col-md-3">
+                                <label> Middle Name</label><br /> @Html.TextBoxFor(x => x.MiddleName, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-3">
+                                <label class="required">Last Name</label><br />
+                                @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", IsRequired = "TRUE" })
+                            </div>
+                            <div class="col-md-3">
+                                <label>Suffix</label><br />
+                                @Html.DropDownListFor(model => model.Suffix, Model.SuffixList, new { @class = "form-control" })
+                            </div><br />
+
+                            <div class="col-md-3">
+                                <label>Authority in Charge of the Property  </label> <br />
+                                @Html.TextBoxFor(x => x.Authority, new { @class = "form-control", maxlength = "30" })
+                            </div>
+                            <div class="col-md-3">
+                                <label class="required">Job Title</label>   <br />
+                                @Html.TextBoxFor(x => x.JobTitle, new { @class = "form-control", maxlength = "30", IsRequired = "TRUE" })
+                            </div>
+                            <br />
+                            <div class="col-md-12"></div><br />
+                            <div class="col-md-3">
+                                <label class="required">Telephone Number</label>  <br />
+                                @Html.TextBoxFor(x => x.TelephoneNumber, new { @class = "form-control", id = "phone", maxlength = "15", IsRequired = "TRUE" })
+                            </div>
+                            <div class="col-md-3">
+                                <label class="required">EmailAddress</label><br />
+                                @Html.TextBoxFor(x => x.EmailId, new { @class = "form-control", maxlength = "70", IsRequired = "TRUE" })
+                            </div><br />
+                            <div class="col-md-12"></div><br />
+                            <div>
+                                @Html.Partial("_AddressInfo", Model)
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <br /><br /><br /><br />
+                        <label>Comments</label><br />
+                        @Html.TextAreaFor(model => model.Comments, new { @class = "form-control", maxlength = 2000, @cols = "75", @rows = "3" })
+                    </div>
+                    <div class="col-md-12">
+                        <br /><br />
+                        <div class="col-md-3 text-left ">
+
+                            <input type="button" id="btnPrevious" class="NextBtn btn btn-default" value="Previous" style="background-color:#a90606; color:white" onclick="previousBtn_click()" />
+
+                        </div>
+                        <div class="col-md-6 text-right ">
+
+                            <input type="submit"
+                                   id="btnNext"
+                                   class="NextBtn btn btn-default"
+                                   value="Next"
+                                   onclick="return propertyOwnerInfo.validate()"
+                                   style="background-color:#a90606; color:white" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@*<script src="http://code.jquery.com/jquery-migrate-3.0.0.js"></script>
+    <link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+    <script src="~/scripts/jquery-1.10.2.js"></script>
+    <script src="~/scripts/jquery-ui-1.10.4.custom.min.js"></script>*@
+@*<script src="~/Scripts/jquery-3.2.1.min.js"></script>*@
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>*@
+
+<script src="~/Scripts/BPM_Js/QualifyingInfo.js"></script>
+<script src="~/Scripts/BPM_Js/Common.js"></script>
+
+<script src="~/Scripts/BPM_Js/propertyOwnerInfo.js"></script>
+<script>
+
+    $('input[type="checkbox"]').on('change', function () {
+        $('input[type="checkbox"]').not(this).prop('checked', false);
+    });
+
+    
+
+
+    function previousBtn_click() {
+              location.href = '@Url.Action("Index", "QualifyingInfo")';
+    }
+
+
+   
+    $("#PropertyOwnerInformation *").attr('disabled', 'disabled');
+    $("#PropertyOwnerIndividualPage *").attr('disabled', 'disabled');
+
+    $(function () {
+        $('#propChecked').change(function () {
+            if ($(this).is(':checked')) {
+                alert("hi");
+                //$('#PropertyOwnerInformation').removeAttr('disabled');
+                $("#PropertyOwnerInformation *").children().removeAttr('disabled');
+                $("#PropertyOwnerIndividualPage *").children().removeAttr('disabled');
+            }
+            else {
+
+                $("#PropertyOwnerInformation *").children().attr('disabled', 'disabled');
+                $("#PropertyOwnerIndividualPage *").children().attr('disabled', 'disabled');
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        propertyOwnerInfo.stackHolderTypeChange();
+        propertyOwnerInfo.init();
+
+
+    });
+
+   
+    $(function () {
+        //alert("hi");
+        $("#phone").inputmask("(999) 999-9999");
+    });
+    $(function () {
+        //alert("hello");
+        $("#AddressInfo_Zip").inputmask("99999?-9999");
+    });
+
+</script>
+
