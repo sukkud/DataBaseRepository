@@ -7,8 +7,6 @@
     ViewBag.Title = "Property Owner Info";
 }
 
-
-
 <div class="container-fluid" id="PropertyOwnerForm">
     @using (Html.BeginForm("Index", "PropertyOwnerInfo", FormMethod.Post))
     {
@@ -40,13 +38,17 @@
 
                     <br />
                     <div class="col-md-12"><br /></div><br />
-                    <div class="col-md-12 ">
-                        @Html.CheckBox("Check this box to change or update information", new {@class="", id="propChecked" }) &nbsp; Check this box to change or update information
-                        <br />
-                        @Html.CheckBox("Create new record") &nbsp; Create new record<br /><br />
-                    </div>
+                                                       <div class="col-md-12 " >
+                                                           @Html.CheckBoxFor(x => x.IsUpdateRecord, new { @class = "", id = "recordchecked1" }) &nbsp; Check this box to change or update information
+                                                           @*@Html.RadioButtonFor(x => x.IsUpdateRecord, new { @class = "", id = "recordchecked" }) &nbsp; Check this box to change or update information*@
+                                                           <br />
+                                                           @Html.CheckBoxFor(x => x.IsUpdateRecord, new { @class = "", id = "recordchecked2" }) &nbsp; Create new record<br /><br />
+                                                           @*@Html.RadioButtonFor(x => x.IsNewRecord, new { @class = "", id = "recordchecked" }) &nbsp; Create new record<br /><br />*@
+
+                                                       </div>
                     <br />
                     @*-------------PropertyOwnerOrganizationPage----------------------*@
+
                     <div id="PropertyOwnerInformation" style="display:block" >
                         <div class="form-group">
 
@@ -62,12 +64,10 @@
 
                             <br />
                             <div class="col-md-12"></div><br />
-                            <div>
-                                @Html.Partial("_AddressInfo", Model)
-                            </div>
-                            <div class="col-md-12"></div><br />
+                            
                         </div>
                     </div>
+
                     @*--------------PropertyOwnerIndividualPage-----------------*@
 
                     <div id="PropertyOwnerIndividualPage" style="display:none">
@@ -100,19 +100,20 @@
                             <div class="col-md-12"></div><br />
                             <div class="col-md-3">
                                 <label class="required">Telephone Number</label>  <br />
-                                @Html.TextBoxFor(x => x.TelephoneNumber, new { @class = "form-control", id = "phone", maxlength = "15", IsRequired = "TRUE" })
+                                @Html.TextBoxFor(x => x.TelephoneNumber, new { @class = "form-control", id = "phone", maxlength = "15", IsRequired = "TRUE" , phoneFormat =""})
                             </div>
                             <div class="col-md-3">
                                 <label class="required">EmailAddress</label><br />
                                 @Html.TextBoxFor(x => x.EmailId, new { @class = "form-control", maxlength = "70", IsRequired = "TRUE" })
                             </div><br />
                             <div class="col-md-12"></div><br />
-                            <div>
-                                @Html.Partial("_AddressInfo", Model)
-                            </div>
+                            
                         </div>
                     </div>
-                    
+                    <div id="addressInfo">
+                        @Html.Partial("_AddressInfo", Model)
+                    </div>
+
                     <div class="col-md-12">
                         <br /><br /><br /><br />
                         <label>Comments</label><br />
@@ -141,14 +142,8 @@
         </div>
     }
 </div>
-@*<script src="http://code.jquery.com/jquery-migrate-3.0.0.js"></script>
-    <link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
-    <script src="~/scripts/jquery-1.10.2.js"></script>
-    <script src="~/scripts/jquery-ui-1.10.4.custom.min.js"></script>*@
-@*<script src="~/Scripts/jquery-3.2.1.min.js"></script>*@
-@*<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>*@
+
+
 
 <script src="~/Scripts/BPM_Js/QualifyingInfo.js"></script>
 <script src="~/Scripts/BPM_Js/Common.js"></script>
@@ -156,11 +151,13 @@
 <script src="~/Scripts/BPM_Js/propertyOwnerInfo.js"></script>
 <script>
 
-    $('input[type="checkbox"]').on('change', function () {
-        $('input[type="checkbox"]').not(this).prop('checked', false);
-    });
+    //$('input[type="checkbox"]').on('change', function () {
+    //    $('input[type="checkbox"]').not(this).prop('checked', false);
+    //});
 
-    
+    $(document).ready(function () {
+        common.init("#PropertyOwnerForm");
+    });
 
 
     function previousBtn_click() {
@@ -169,21 +166,23 @@
 
 
    
-    $("#PropertyOwnerInformation *").attr('disabled', 'disabled');
-    $("#PropertyOwnerIndividualPage *").attr('disabled', 'disabled');
-
+    $("#PropertyOwnerInformation *, #PropertyOwnerIndividualPage *, #addressInfo *").attr('disabled', 'disabled');
+    //$("#PropertyOwnerIndividualPage *").attr('disabled', 'disabled');
+    //$("#addressInfo *").attr('disabled', 'disabled');
     $(function () {
-        $('#propChecked').change(function () {
+        $('#recordchecked1, #recordchecked2').change(function () {
             if ($(this).is(':checked')) {
                 alert("hi");
                 //$('#PropertyOwnerInformation').removeAttr('disabled');
                 $("#PropertyOwnerInformation *").children().removeAttr('disabled');
                 $("#PropertyOwnerIndividualPage *").children().removeAttr('disabled');
+                $("#addressInfo *").children().removeAttr('disabled');
             }
             else {
 
                 $("#PropertyOwnerInformation *").children().attr('disabled', 'disabled');
                 $("#PropertyOwnerIndividualPage *").children().attr('disabled', 'disabled');
+                $("#addressInfo *").children().attr('disabled', 'disabled');
             }
         });
     });
@@ -196,14 +195,14 @@
     });
 
    
-    $(function () {
-        //alert("hi");
-        $("#phone").inputmask("(999) 999-9999");
-    });
-    $(function () {
-        //alert("hello");
-        $("#AddressInfo_Zip").inputmask("99999?-9999");
-    });
+    //$(function () {
+    //    alert("hi");
+    //    $("#phone").inputmask("(999) 999-9999");
+    //});
+    //$(function () {
+    //    alert("hello");
+    //    $("#AddressInfo_Zip").inputmask("99999?-9999");
+    //});
 
 </script>
 
